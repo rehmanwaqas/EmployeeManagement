@@ -12,34 +12,8 @@ namespace EmployeeManagement.Controllers
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-        private List<Employee> Employees = new List<Employee>() {
-                /*new Employee {
-                    Id          = 1,
-                    FirstName   = "First Name 1",
-                    LastName    = "Last Name 1",
-                    Email       = "Email 1",
-                    PhoneNumber = "Phone Number 1",
-                    Country     = "Country 1"
-                },
-
-                new Employee {
-                    Id          = 2,
-                    FirstName   = "First Name 2",
-                    LastName    = "Last Name 2",
-                    Email       = "Email 2",
-                    PhoneNumber = "Phone Number 2",
-                    Country     = "Country 2"
-                }*/
-            };
-
         private readonly ILogger<EmployeeController> _logger;
         private readonly MySQLServerDBContext _context;
-
         public EmployeeController(ILogger<EmployeeController> logger, MySQLServerDBContext context)
         {
             _logger = logger;
