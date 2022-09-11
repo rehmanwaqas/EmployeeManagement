@@ -5,9 +5,12 @@ using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
+    //[Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
     [ApiController]
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
@@ -18,6 +21,12 @@ namespace EmployeeManagement.Controllers
         {
             _logger = logger;
             _context = context;
+        }
+
+        [HttpGet("GetTokenDetails", Name = "GetTokenDetails")]
+        public IActionResult GetTokenDetails()
+        {
+            return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
         }
 
         [HttpGet("GetAllEmployees", Name = "GetAllEmployees")]
