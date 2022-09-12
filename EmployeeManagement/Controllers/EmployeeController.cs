@@ -31,7 +31,7 @@ namespace EmployeeManagement.Controllers
         }
         */
 
-        [Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
+        //[Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
         [HttpGet("GetAllEmployees", Name = "GetAllEmployees")]
         public async Task<ActionResult<List<Employee>>> GetAllEmployees()
         {
