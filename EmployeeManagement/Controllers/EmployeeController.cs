@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EmployeeManagement.Controllers
 {
-    //[Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
     [ApiController]
     [Route("[controller]")]
     public class EmployeeController : ControllerBase
@@ -22,46 +21,47 @@ namespace EmployeeManagement.Controllers
             _logger = logger;
             _context = context;
         }
-
+        
+        /*
+        [Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
         [HttpGet("GetTokenDetails", Name = "GetTokenDetails")]
         public IActionResult GetTokenDetails()
         {
             return new JsonResult(from c in User.Claims select new { c.Type, c.Value });
         }
+        */
 
+        [Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
         [HttpGet("GetAllEmployees", Name = "GetAllEmployees")]
         public async Task<ActionResult<List<Employee>>> GetAllEmployees()
         {
             return Ok(await _context.Employees.ToListAsync());
-            //return Ok(Employees);
         }
 
+        [Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
         [HttpGet("GetEmployee/{id}", Name = "GetEmployee")]
         public async Task<ActionResult<Employee>> GetEmployee(long id)
         {
-            //var emp = Employees.Find(x => x.Id == id) ;
             var emp = await _context.Employees.FindAsync(id) ;
             if (emp == null)
                 return BadRequest("Employee not found");
             return Ok(emp) ;
         }
 
+        [Authorize(Roles = "App.WriteOnly")]
         [HttpPost("SaveEmployee", Name = "SaveEmployee")]
         public async Task<ActionResult<List<Employee>>> SaveEmployee([FromBody]Employee emp)
         {
             _context.Employees.Add(emp);
             await _context.SaveChangesAsync();
             return Ok(await _context.Employees.ToListAsync());
-            //Employees.Add(emp);
-            //return Ok(Employees);
         }
 
+        [Authorize(Roles = "App.WriteOnly")]
         [HttpPut("UpdateEmployee", Name = "UpdateEmployee")]
         public async Task<ActionResult<List<Employee>>> UpdateEmployee([FromBody] Employee employee)
         {
             Employee emp = await _context.Employees.FindAsync(employee.Id);
-
-            //Employee emp = Employees.Find(x => x.Id == employee.Id);
             if (emp == null)
                 return BadRequest("Employee not found");
 
@@ -74,9 +74,9 @@ namespace EmployeeManagement.Controllers
             await _context.SaveChangesAsync();
 
             return Ok(await _context.Employees.ToListAsync());
-            //return Ok(Employees.Find(x => x.Id == employee.Id));
         }
 
+        [Authorize(Roles = "App.WriteOnly")]
         [HttpDelete("DeleteEmployee/{id}", Name = "DeleteEmployee")]
         public async Task<ActionResult<List<Employee>>> DeleteEmployee(long id)
         {
