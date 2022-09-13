@@ -38,7 +38,7 @@ namespace EmployeeManagement.Controllers
             return Ok(await _context.Employees.ToListAsync());
         }
 
-        [Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
+        //[Authorize(Roles = "App.ReadOnly,App.WriteOnly")]
         [HttpGet("GetEmployee/{id}", Name = "GetEmployee")]
         public async Task<ActionResult<Employee>> GetEmployee(long id)
         {
@@ -48,7 +48,7 @@ namespace EmployeeManagement.Controllers
             return Ok(emp) ;
         }
 
-        [Authorize(Roles = "App.WriteOnly")]
+        //[Authorize(Roles = "App.WriteOnly")]
         [HttpPost("SaveEmployee", Name = "SaveEmployee")]
         public async Task<ActionResult<List<Employee>>> SaveEmployee([FromBody]Employee emp)
         {
@@ -57,7 +57,7 @@ namespace EmployeeManagement.Controllers
             return Ok(await _context.Employees.ToListAsync());
         }
 
-        [Authorize(Roles = "App.WriteOnly")]
+        //[Authorize(Roles = "App.WriteOnly")]
         [HttpPut("UpdateEmployee", Name = "UpdateEmployee")]
         public async Task<ActionResult<List<Employee>>> UpdateEmployee([FromBody] Employee employee)
         {
@@ -76,7 +76,7 @@ namespace EmployeeManagement.Controllers
             return Ok(await _context.Employees.ToListAsync());
         }
 
-        [Authorize(Roles = "App.WriteOnly")]
+        //[Authorize(Roles = "App.WriteOnly")]
         [HttpDelete("DeleteEmployee/{id}", Name = "DeleteEmployee")]
         public async Task<ActionResult<List<Employee>>> DeleteEmployee(long id)
         {
