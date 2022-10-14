@@ -42,11 +42,14 @@ namespace EmployeeManagement.Controllers
         [HttpGet("GetEmployee/{id}", Name = "GetEmployee")]
         public async Task<ActionResult<Employee>> GetEmployee(long id)
         {
-            var emp = await _context.Employees.FindAsync(id) ;
+            var emp = new Employee(10, "Waqas", "Rehman", "waqas.rehman@colliers.com", "+1 123 445 7788", "Canada");
+            //await _context.Employees.FindAsync(id) ;
             if (emp == null)
                 return BadRequest("Employee not found");
             return Ok(emp) ;
         }
+
+
 
         //[Authorize(Roles = "App.WriteOnly")]
         [HttpPost("SaveEmployee", Name = "SaveEmployee")]
